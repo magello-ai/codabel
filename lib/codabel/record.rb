@@ -35,3 +35,4 @@ module Codabel
   end
 end
 require_relative 'record/header'
+require_relative 'record/old_balance'

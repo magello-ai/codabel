@@ -11,7 +11,12 @@ module Codabel
     end
   end
 end
+require_relative 'type/account_structure'
+require_relative 'type/account_and_currency'
+require_relative 'type/account_description'
 require_relative 'type/an'
+require_relative 'type/balance'
+require_relative 'type/balance_sign'
 require_relative 'type/blank'
 require_relative 'type/date'
 require_relative 'type/duplicate'
