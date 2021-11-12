@@ -5,6 +5,10 @@ module Codabel
         Header.new(data)
       end
 
+      def new_balance(data = {})
+        NewBalance.new(data)
+      end
+
       def old_balance(data = {})
         OldBalance.new(data)
       end
@@ -48,5 +52,6 @@ module Codabel
   end
 end
 require_relative 'record/header'
+require_relative 'record/new_balance'
 require_relative 'record/old_balance'
 require_relative 'record/trailer'
