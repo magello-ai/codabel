@@ -1,6 +1,18 @@
 module Codabel
   class Record
     class << self
+      def header(data = {})
+        Header.new(data)
+      end
+
+      def old_balance(data = {})
+        OldBalance.new(data)
+      end
+
+      def trailer(data = {})
+        Trailer.new(data)
+      end
+
       def column(range, name, type, options = {})
         type = type.new if type.is_a?(Class)
         add_column Column.new(range, name, type, options)
