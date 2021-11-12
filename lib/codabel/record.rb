@@ -2,7 +2,8 @@ module Codabel
   class Record
     class << self
       def column(range, name, type, options = {})
-        add_column Column.new(range, name, type.new, options)
+        type = type.new if type.is_a?(Class)
+        add_column Column.new(range, name, type, options)
       end
 
       def add_column(column)
@@ -36,3 +37,4 @@ module Codabel
 end
 require_relative 'record/header'
 require_relative 'record/old_balance'
+require_relative 'record/trailer'

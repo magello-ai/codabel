@@ -1,8 +1,8 @@
 module Codabel
   class Type
-    class Balance < Type
+    class AmountSign < Type
       def to_coda(value, length)
-        (value * 100).to_i.to_s.rjust(length, '0')
+        (value >= 0.0 ? '0' : '1').rjust(length, '0')
       end
     end
   end

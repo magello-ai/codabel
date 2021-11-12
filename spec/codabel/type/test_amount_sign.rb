@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Codabel::Type::BalanceSign do
+describe Codabel::Type::AmountSign do
   subject do
-    Codabel::Type::BalanceSign.new
+    Codabel::Type::AmountSign.new
   end
 
   it 'generates a 0 for positive amounts' do

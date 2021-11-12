@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Codabel::Type::Balance do
+describe Codabel::Type::Amount do
   subject do
-    Codabel::Type::Balance.new
+    Codabel::Type::Amount.new
   end
 
   it 'works with integers' do
