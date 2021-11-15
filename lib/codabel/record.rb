@@ -52,6 +52,7 @@ module Codabel
   end
 end
 require_relative 'record/header'
+require_relative 'record/movement21'
 require_relative 'record/new_balance'
 require_relative 'record/old_balance'
 require_relative 'record/trailer'

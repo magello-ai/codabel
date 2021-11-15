@@ -13,4 +13,8 @@ describe Codabel::Type::Amount do
   it 'works with floats' do
     expect(subject.to_coda(123.7618, 15)).to eql('000000000012376')
   end
+
+  it 'removes the sign' do
+    expect(subject.to_coda(-123.76, 15)).to eql('000000000012376')
+  end
 end

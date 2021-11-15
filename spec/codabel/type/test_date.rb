@@ -19,4 +19,9 @@ describe Codabel::Type::Date do
     date = Time.parse('2021-11-06')
     expect(subject.to_coda(date, 6)).to eql('061121')
   end
+
+  it 'supports nil, and generates zeros' do
+    date = nil
+    expect(subject.to_coda(date, 6)).to eql('000000')
+  end
 end
