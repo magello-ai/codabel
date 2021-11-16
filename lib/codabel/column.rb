@@ -1,13 +1,13 @@
 module Codabel
   class Column
-    def initialize(range, name, type, options)
+    def initialize(range, path, type, options)
       @range = range
-      @name = name
+      @path = Array(path)
       @type = type
       @options = options
     end
     attr_reader :range
-    attr_reader :name
+    attr_reader :path
     attr_reader :type
     attr_reader :options
 
@@ -16,7 +16,8 @@ module Codabel
     end
 
     def to_coda(record)
-      value = record.data.fetch(name, options[:default])
+      value = record.data.dig(*path) if path.size > 0
+      value = options[:default] if value.nil?
       type.to_coda(value, length)
     end
   end

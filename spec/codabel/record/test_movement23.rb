@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe Codabel::Record::Movement22 do
+describe Codabel::Record::Movement23 do
   subject {
-    Codabel::Record::Movement22.for(data)
+    Codabel::Record::Movement23.for(data)
   }
 
   context 'with empty data' do
@@ -13,7 +13,7 @@ describe Codabel::Record::Movement22 do
     it 'generates a default record' do
       got = subject.to_coda
       expected = <<CODA.strip
-2200010000                                                                                                                   0 0
+2300010000                                  EUR                                                                              0 0
 CODA
       expect(got).to eql(expected)
     end
@@ -24,24 +24,21 @@ CODA
       {
         sequence_number: 17,
         detail_number: 3,
-        communication: 'Hello world',
         counterparty: {
-          reference: 'cus123',
-          bank: {
-            bic: 'bic456'
+          name: 'Ignite Favor',
+          account: {
+            number: 'BE68539007547034',
+            currency: 'EUR'
           }
         },
-        return_transaction_type: :reject,
-        reason_return_code: 'ISO',
-        purpose_category: 'FOO',
-        purpose: 'BAR'
+        communication: 'Hello world'
       }
     }
 
     it 'generates a default record' do
       got = subject.to_coda
       expected = <<CODA.strip
-2200170003Hello world                                          cus123                             bic456        1ISO FOO BAR 0 0
+2300170003BE68539007547034                  EURIgnite Favor                       Hello world                                0 0
 CODA
       expect(got).to eql(expected)
     end

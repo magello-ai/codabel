@@ -18,6 +18,10 @@ module Codabel
       end
 
       def column(range, name, type, options = {})
+        last_index = columns.last&.range&.max || 0
+        raise Error, "Wrong column range #{range}, expected #{1+last_index}.." unless range.min == 1+last_index
+        raise Error, "Wrong column range #{range}" if range.max > 128
+
         type = type.new if type.is_a?(Class)
         add_column Column.new(range, name, type, options)
       end
@@ -54,6 +58,7 @@ end
 require_relative 'record/header'
 require_relative 'record/movement21'
 require_relative 'record/movement22'
+require_relative 'record/movement23'
 require_relative 'record/new_balance'
 require_relative 'record/old_balance'
 require_relative 'record/trailer'
