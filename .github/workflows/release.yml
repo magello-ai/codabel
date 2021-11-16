@@ -1,0 +1,50 @@
+name: Releases
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  Integration:
+    uses: flexioapp/codabel/.github/workflows/integration.yml@master
+
+  RubyGems:
+    needs: Integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Build gem
+        run: make gem
+
+      - name: Release Gem
+        uses: cadwallion/publish-rubygems-action@master
+        env:
+          RUBYGEMS_API_KEY: ${{ secrets.RUBYGEMS_API_KEY }}
+          RELEASE_COMMAND: make gem.push
+
+  Github:
+    needs: Integration
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+          bundler-cache: true
+
+      - name: Build gem
+        run: make gem
+
+      - uses: ncipollo/release-action@v1
+        id: create-release
+        with:
+          artifacts: "pkg/*"
+          token: ${{ secrets.GITHUB_TOKEN }}
