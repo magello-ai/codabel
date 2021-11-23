@@ -29,14 +29,14 @@ CODA
           currency: 'EUR',
           description: 'Foo bar baz'
         },
-        balance: 1234.67
+        balance: 123_467
       }
     end
 
     it 'generates the expected record' do
       got = subject.to_coda
       expected = <<CODA.strip
-8018BE68539007547034                  EUR0000000000123467181121                                                                0
+8018BE68539007547034                  EUR0000000001234670181121                                                                0
 CODA
       expect(got).to eql(expected)
     end

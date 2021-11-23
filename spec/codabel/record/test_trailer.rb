@@ -23,8 +23,8 @@ CODA
     let(:data) {
       {
         records_count: 10,
-        debit: 123.45,
-        credit: 678.90,
+        debit: 12_345,
+        credit: 67_890,
         file_follows: true
       }
     }
@@ -32,7 +32,7 @@ CODA
     it 'generates the expected record' do
       got = subject.to_coda
       expected = <<CODA.strip
-9               000010000000000012345000000000067890                                                                           1
+9               000010000000000123450000000000678900                                                                           1
 CODA
       expect(got).to eql(expected)
     end

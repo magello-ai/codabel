@@ -25,7 +25,7 @@ CODA
         sequence_number: 17,
         detail_number: 3,
         bank_reference: 'foo bar',
-        amount: -123.45,
+        amount: -12_345,
         value_date: Date.parse('2021-11-17'),
         entry_date: Date.parse('2021-11-18'),
         communication: 'Hello world'
@@ -35,7 +35,7 @@ CODA
     it 'generates a default record' do
       got = subject.to_coda
       expected = <<CODA.strip
-2100170003foo bar              1000000000012345171121000000000Hello world                                          18112100000 0
+2100170003foo bar              1000000000123450171121000000000Hello world                                          18112100000 0
 CODA
       expect(got).to eql(expected)
     end
