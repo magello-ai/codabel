@@ -26,7 +26,7 @@ CODA
         duplicate: true,
         file_reference: 'foobarbaz',
         addressee_name: 'Bernard Lambeau',
-        bank_bic: 'GKCCBEBB',
+        bank: { bic: 'GKCCBEBB' },
         creation_date: Date.parse('2021-11-18'),
         holder_identifier: '558926866',
         transaction_reference: 'transaction ref',

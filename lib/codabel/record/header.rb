@@ -10,7 +10,7 @@ module Codabel
       column 18..24,   nil,                    Type::Blank
       column 25..34,   :file_reference,        Type::AN,        default: ''
       column 35..60,   :addressee_name,        Type::AN,        default: ''
-      column 61..71,   :bank_bic,              Type::AN,        default: ''
+      column 61..71,   [:bank, :bic],          Type::AN,        default: ''
       column 72..82,   :holder_identifier,     Type::Holder,    default: ''
       column 83..83,   nil,                    Type::Blank
       column 84..88,   :distinct_app_code,     Type::N,         default: 0
