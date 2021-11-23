@@ -5,12 +5,16 @@ module Codabel
         Header.new(data)
       end
 
-      def new_balance(data = {})
-        NewBalance.new(data)
-      end
-
       def old_balance(data = {})
         OldBalance.new(data)
+      end
+
+      def movement(data = {})
+        Movement21.new(data)
+      end
+
+      def new_balance(data = {})
+        NewBalance.new(data)
       end
 
       def trailer(data = {})
