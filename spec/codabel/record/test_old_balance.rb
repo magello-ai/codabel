@@ -27,10 +27,10 @@ CODA
         account: {
           number: 'BE68539007547034',
           currency: 'EUR',
-          description: 'Foo bar baz'
+          description: 'Foo bar baz',
+          holder_name: 'Bernard Lambeau'
         },
         balance: 123_467,
-        holder_name: 'Bernard Lambeau',
         sequence_number_daily: 27
       }
     end
