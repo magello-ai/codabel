@@ -10,7 +10,19 @@ module Codabel
       end
 
       def movement(data = {})
+        Movement.new(data)
+      end
+
+      def movement21(data = {})
         Movement21.new(data)
+      end
+
+      def movement22(data = {})
+        Movement22.new(data)
+      end
+
+      def movement23(data = {})
+        Movement23.new(data)
       end
 
       def new_balance(data = {})
@@ -42,6 +54,12 @@ module Codabel
       def for(data)
         new(data)
       end
+
+      def required?(data, ignore: [])
+        columns
+          .reject { |column| ignore.any? { |path| column.path_starts_with?(path) } }
+          .any? { |column| column.specifics?(data) }
+      end
     end
 
     def initialize(data)
@@ -60,6 +78,7 @@ module Codabel
   end
 end
 require_relative 'record/header'
+require_relative 'record/movement'
 require_relative 'record/movement21'
 require_relative 'record/movement22'
 require_relative 'record/movement23'
