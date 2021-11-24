@@ -31,7 +31,7 @@ CODA
           holder_name: 'Bernard Lambeau'
         },
         balance: 123_467,
-        sequence_number_daily: 27
+        sequence_number: 27
       }
     end
 

@@ -10,7 +10,7 @@ module Codabel
       column 59..64,   :balance_date,            Type::Date,               default: Date.today
       column 65..90,   [:account, :holder_name], Type::AN,                 default: ''
       column 91..125,  :account,                 Type::AccountDescription, default: ''
-      column 126..128, :sequence_number_daily,   Type::N,                  default: 1
+      column 126..128, :sequence_number,         Type::N,                  default: 1
     end
   end
 end
