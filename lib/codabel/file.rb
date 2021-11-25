@@ -10,7 +10,7 @@ module Codabel
     end
 
     def find_records(type)
-      @records.filter { |record| record.is_a?(type) }
+      @records.select { |record| record.is_a?(type) }
     end
 
     def find_record(type)

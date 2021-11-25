@@ -50,7 +50,7 @@ module Codabel
       end
 
       def count_records(file)
-        file.records.filter { |record| must_be_counted?(record) }.size
+        file.records.select { |record| must_be_counted?(record) }.size
       end
 
       def must_be_counted?(record)
