@@ -8,7 +8,7 @@ module Codabel
       column 2..2,     nil,                        Type::N,                default: 2
       column 3..6,     :sequence_number,           Type::N,                default: 1
       column 7..10,    :detail_number,             Type::N,                default: 0
-      column 11..63,   :communication,             Type::AN,               default: ''
+      column 11..63,   :communication,             Type::Communication,    default: ''
       column 64..98,   %i[counterparty reference], Type::AN,               default: ''
       column 99..109,  %i[counterparty bank bic],  Type::AN,               default: ''
       column 110..112, nil,                        Type::Blank,            default: ''

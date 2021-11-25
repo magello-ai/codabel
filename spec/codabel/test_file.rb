@@ -41,6 +41,42 @@ describe Codabel::File do
     expect(got).to eql(expected)
   end
 
+  it 'supports structured communications' do
+    file = Codabel::File.new
+    file << Codabel::Record.movement(
+      entry_date: Date.parse('2021-11-18'),
+      value_date: Date.parse('2021-11-18'),
+      communication: {
+        structured: '121204102125'
+      }
+    )
+    got = file.to_coda
+    expected = <<~CODA
+2100010000                     0000000000000000181121000000001110121204102125                                      18112100000 0
+CODA
+    expect(got).to eql(expected)
+  end
+
+  it 'supports structured & unstructured communications' do
+    file = Codabel::File.new
+    file << Codabel::Record.movement(
+      entry_date: Date.parse('2021-11-18'),
+      value_date: Date.parse('2021-11-18'),
+      communication: {
+        unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100,
+        structured: '121204102125'
+      }
+    )
+    got = file.to_coda
+    expected = <<~CODA
+2100010000                     0000000000000000181121000000001110121204102125                                      18112100000 1
+3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
+3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
+3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 0
+CODA
+    expect(got).to eql(expected)
+  end
+
   it 'applies record counts validation to the trailer record' do
     expect(lambda do
       file = Codabel::File.new

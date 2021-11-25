@@ -10,7 +10,7 @@ module Codabel
       column 7..10,    :detail_number,            Type::N,                  default: 0
       column 11..47,   %i[counterparty account],  Type::AccountAndCurrency, default: ''
       column 48..82,   %i[counterparty name],     Type::AN,                 default: ''
-      column 83..125,  :communication,            Type::AN,                 default: ''
+      column 83..125,  :communication,            Type::Communication,      default: ''
       column 126..126, nil,                       Type::N,                  default: 0
       column 127..127, nil,                       Type::Blank,              default: ''
       column 128..128, :link_code,                Type::Flag,               default: false
