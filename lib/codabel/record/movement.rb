@@ -5,6 +5,10 @@ module Codabel
         actual_movements.map(&:to_coda).join("\n")
       end
 
+      def actual_records(_file)
+        actual_movements
+      end
+
       private
 
       def actual_movements

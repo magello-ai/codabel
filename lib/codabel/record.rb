@@ -67,6 +67,14 @@ module Codabel
     end
     attr_reader :data
 
+    def actual_records(_file)
+      [self]
+    end
+
+    def auto_enrich(_file)
+      [self]
+    end
+
     def to_coda
       str = self.class.columns.each_with_object('') do |column, memo|
         memo << column.to_coda(self)

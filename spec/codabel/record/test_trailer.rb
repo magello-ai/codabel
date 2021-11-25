@@ -13,7 +13,7 @@ describe Codabel::Record::Trailer do
     it 'generates a default record' do
       got = subject.to_coda
       expected = <<CODA.strip
-9               000002000000000000000000000000000000                                                                           2
+9               000000000000000000000000000000000000                                                                           2
 CODA
       expect(got).to eql(expected)
     end
@@ -22,7 +22,7 @@ CODA
   context 'with full data' do
     let(:data) {
       {
-        records_count: 10,
+        records_count: 17,
         debit: 12_345,
         credit: 67_890,
         file_follows: true
@@ -32,7 +32,7 @@ CODA
     it 'generates the expected record' do
       got = subject.to_coda
       expected = <<CODA.strip
-9               000010000000000123450000000000678900                                                                           1
+9               000017000000000123450000000000678900                                                                           1
 CODA
       expect(got).to eql(expected)
     end
