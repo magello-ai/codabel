@@ -17,6 +17,7 @@ data. We currently support version 2.6 of the Febelfin specification:
 
 ### Limitations
 
+* No support for ruby < 2.5
 * No support for free information records (4)
 * No high-level data model for transaction codes (record 2.1)
 * No high-level data model for R-transaction and reason (record 2.2)
