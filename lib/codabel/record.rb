@@ -75,6 +75,9 @@ module Codabel
       [self]
     end
 
+    def validate!(file)
+    end
+
     def to_coda
       str = self.class.columns.each_with_object('') do |column, memo|
         memo << column.to_coda(self)
@@ -82,6 +85,12 @@ module Codabel
       return str if str.length == 128
 
       raise Error, "128 characters expected, got #{str.length}\n#{str}"
+    end
+
+    protected
+
+    def check!(assertion, message)
+      raise ValidationError, message unless assertion
     end
   end
 end

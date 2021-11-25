@@ -21,6 +21,10 @@ module Codabel
       column 127..127, nil,                    Type::Blank,      default: ''
       column 128..128, :link_code,             Type::Flag,       default: false
 
+      def amount
+        data[:amount] || 0
+      end
+
       def debit_amount
         data[:amount] <= 0 ? data[:amount] : 0
       end

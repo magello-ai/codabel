@@ -11,6 +11,10 @@ module Codabel
       column 65..90,   [:account, :holder_name], Type::AN,                 default: ''
       column 91..125,  :account,                 Type::AccountDescription, default: ''
       column 126..128, :sequence_number,         Type::N,                  default: 1
+
+      def balance
+        data[:balance] || 0
+      end
     end
   end
 end

@@ -11,6 +11,17 @@ module Codabel
       column 58..63,   :balance_date,          Type::Date,                  default: Date.today
       column 64..127,  nil,                    Type::AN,                    default: ''
       column 128..128, :communication_follows, Type::Flag.new(**FOLLOWING), default: false
+
+      def balance
+        data[:balance] || 0
+      end
+
+      def validate!(file)
+        return unless (old_balance = file.find_record(OldBalance))
+
+        expected = old_balance.balance + file.find_records(Movement21).map(&:amount).sum
+        check!(expected == balance, "Invalid new balance: expected #{expected}, got #{balance}")
+      end
     end
   end
 end
