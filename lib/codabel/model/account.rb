@@ -6,6 +6,21 @@ module Codabel
       BELGIAN_IBAN = :belgian_iban
       FOREIGN_IBAN = :foreign_iban
 
+      def initialize(attributes = {})
+        super(check!(attributes))
+      end
+
+      def check!(attributes)
+        attributes = attributes.dup
+
+        if (c = attributes[:currency])
+          c = attributes[:currency] = c.strip
+          raise ValidationError, "Wrong currency #{c}" unless c =~ /^[A-Z]{3}$/
+        end
+
+        attributes
+      end
+
       def self.dress(value)
         case value
         when Account then value

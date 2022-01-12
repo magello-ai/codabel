@@ -43,4 +43,27 @@ CODA
       expect(got).to eql(expected)
     end
   end
+
+  context 'with an invalid account currency' do
+    let(:data) {
+      {
+        sequence_number: 17,
+        detail_number: 3,
+        counterparty: {
+          name: 'Ignite Favor',
+          account: {
+            number: 'BE68539007547034',
+            currency: '-12.30'
+          }
+        },
+        communication: 'Hello world'
+      }
+    }
+
+    it 'raises an understandable error' do
+      expect(lambda {
+        Codabel::Record::Movement23.for(data).to_coda
+      }).to raise_error(Codabel::ValidationError)
+    end
+  end
 end
