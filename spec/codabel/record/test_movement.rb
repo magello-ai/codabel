@@ -93,10 +93,10 @@ describe Codabel::Record::Movement do
     context 'when there are a structured and unstructured communication' do
       let(:data) {
         {
-          communication: {
-            structured: '121204102125',
-            unstructured: 'a'
-          }
+          communication: { structured: '121204102125' },
+          additional_communications: [
+            { unstructured: 'a' }
+          ]
         }
       }
 
@@ -110,10 +110,10 @@ describe Codabel::Record::Movement do
     context 'when there are a structured and long unstructured communication' do
       let(:data) {
         {
-          communication: {
-            structured: '121204102125',
-            unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100
-          }
+          communication: { structured: '121204102125' },
+          additional_communications: [
+            { unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100 }
+          ]
         }
       }
 

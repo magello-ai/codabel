@@ -57,7 +57,7 @@ CODA
     expect(got).to eql(expected)
   end
 
-  it 'supports structured & unstructured communications' do
+  it 'supports structured & unstructured communications (deprecated - use multiple communications instead)' do
     file = Codabel::File.new
     file << Codabel::Record.movement(
       entry_date: Date.parse('2021-11-18'),
@@ -70,6 +70,89 @@ CODA
     got = file.to_coda
     expected = <<~CODA
 2100010000                     0000000000000000181121000000001101121204102125                                      18112100000 1
+3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
+3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
+3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 0
+CODA
+    expect(got).to eql(expected)
+  end
+
+  it 'supports additional communication' do
+    file = Codabel::File.new
+    file << Codabel::Record.movement(
+      entry_date: Date.parse('2021-11-18'),
+      value_date: Date.parse('2021-11-18'),
+      communication: {structured: '121204102125'},
+      additional_communications: [
+        {unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100}
+      ]
+    )
+    got = file.to_coda
+    expected = <<~CODA
+2100010000                     0000000000000000181121000000001101121204102125                                      18112100000 1
+3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
+3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
+3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 0
+CODA
+    expect(got).to eql(expected)
+  end
+
+  it 'supports additional communication with custom structured code' do
+    file = Codabel::File.new
+    file << Codabel::Record.movement(
+      entry_date: Date.parse('2021-11-18'),
+      value_date: Date.parse('2021-11-18'),
+      communication: {structured: '121204102125', structured_code: '999'},
+      additional_communications: [
+        {unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100}
+      ]
+    )
+    got = file.to_coda
+    expected = <<~CODA
+2100010000                     0000000000000000181121000000001999121204102125                                      18112100000 1
+3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
+3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
+3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 0
+CODA
+    expect(got).to eql(expected)
+  end
+
+  it 'supports additional communications without main communication' do
+    file = Codabel::File.new
+    file << Codabel::Record.movement(
+      entry_date: Date.parse('2021-11-18'),
+      value_date: Date.parse('2021-11-18'),
+      additional_communications: [
+        {unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100}
+      ]
+    )
+    got = file.to_coda
+    expected = <<~CODA
+2100010000                     0000000000000000181121000000000                                                     18112100000 1
+3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
+3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
+3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 0
+CODA
+    expect(got).to eql(expected)
+  end
+
+  it 'supports multiple additional communications (leading to multiple 3.1 records)' do
+    file = Codabel::File.new
+    file << Codabel::Record.movement(
+      entry_date: Date.parse('2021-11-18'),
+      value_date: Date.parse('2021-11-18'),
+      communication: {structured: '121204102125'},
+      additional_communications: [
+        {unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100},
+        {unstructured: 'a' * 73 + 'b' * 105 + 'c' * 100}
+      ]
+    )
+    got = file.to_coda
+    expected = <<~CODA
+2100010000                     0000000000000000181121000000001101121204102125                                      18112100000 1
+3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
+3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
+3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 1
 3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
 3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
 3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 0
