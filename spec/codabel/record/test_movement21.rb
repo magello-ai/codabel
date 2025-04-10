@@ -52,7 +52,7 @@ CODA
     it 'generates the expected record' do
       got = subject.to_coda
       expected = <<CODA.strip
-2100010000                     0000000000000000000000000000001110121204102125                                      18112100000 0
+2100010000                     0000000000000000000000000000001101121204102125                                      18112100000 0
 CODA
       expect(got).to eql(expected)
     end

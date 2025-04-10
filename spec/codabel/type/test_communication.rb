@@ -14,6 +14,6 @@ describe Codabel::Type::Communication do
   end
 
   it 'recognizes an structured: String' do
-    expect(subject.to_coda({ structured: '121204102125' }, 17)).to eql('110121204102125  ')
+    expect(subject.to_coda({ structured: '121204102125' }, 17)).to eql('101121204102125  ')
   end
 end

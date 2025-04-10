@@ -1,7 +1,9 @@
 module Codabel
   class Type
     class Communication < Type
-      DEFAULT_STRUCTURED_CODE = '110'.freeze
+      # 101 is the code for Credit transfer or cash payment with structured format communication
+      # See: https://febelfin.be/media/pages/publicaties/2021/gecodeerde-berichtgeving-coda/a19b07a7ad-1694763197/standard-coda-2.6-en.pdf
+      DEFAULT_STRUCTURED_CODE = '101'.freeze
 
       def to_coda(value, length)
         communication = communication_from(value)

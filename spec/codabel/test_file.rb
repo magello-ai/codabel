@@ -52,7 +52,7 @@ describe Codabel::File do
     )
     got = file.to_coda
     expected = <<~CODA
-2100010000                     0000000000000000181121000000001110121204102125                                      18112100000 0
+2100010000                     0000000000000000181121000000001101121204102125                                      18112100000 0
 CODA
     expect(got).to eql(expected)
   end
@@ -69,7 +69,7 @@ CODA
     )
     got = file.to_coda
     expected = <<~CODA
-2100010000                     0000000000000000181121000000001110121204102125                                      18112100000 1
+2100010000                     0000000000000000181121000000001101121204102125                                      18112100000 1
 3100010000                     000000000aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa            1 0
 3200010000bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb          1 0
 3300010000cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc                         0 0
